@@ -10,6 +10,8 @@ provider:
   runtime: nodejs12.x
   memorySize: 256
   region: ap-southeast-1
+  environment:
+    AUCTIONS_TABLE_NAME: ${self:custom.AuctionsTable.name}
   stage: ${opt:stage, 'dev'}
   iamRoleStatements:
     - ${file(iam/AuctionsTableIAM.yml):AuctionsTableIAM}
@@ -27,5 +29,8 @@ functions:
           path: /auction
 
 custom:
+  AuctionsTable:
+    name: !Ref AuctionsTable
+    arn: !GetAtt AuctionsTable.Arn
   bundle:
     linting: false
