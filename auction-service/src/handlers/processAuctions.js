@@ -1,6 +1,8 @@
-// Creating a Global Secondary Index (status, endingAt)
+import { getEndedAuctions } from '../lib/getEndedAuctions';
+
 async function processAuctions(event, context) {
-  console.log('processAuctions');
+  const auctionsToClose = await getEndedAuctions();
+  console.log('auctionsToClose', auctionToClose);
 }
 
 export const handler = processAuctions;
